@@ -67,7 +67,7 @@ export async function loadPyodideAndPackages() {
     
     const importStr = document.getElementById("imports").value
 
-    let loadArr = ['micropip', 'pandas']
+    let loadArr = ['micropip', 'pandas', 'matplotlib']
     let importArr = []
     
     if (importStr !== null && importStr.length>0){
