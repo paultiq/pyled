@@ -5,7 +5,7 @@ const { loadPyodide } = await import(indexURL);
 
 const button = document.getElementById("generateBtn");
 const outputDiv = document.getElementById("bottom");
-const loadables = ['numpy', 'pandas']
+const loadables = ['numpy', 'pandas', 'matplotlib']
 
 async function pyStdErr(msg) {
     const outdiv = document.createElement("div");
