@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta http-equiv="Content-Security-Policy" content="script-src 'nonce-DFX4zDtBDF32343LjE2DFKMs' 'unsafe-eval' https://www.jsdelivr.com https://cdnjs.cloudflare.com https://cdn.plot.ly https://cdn.jsdelivr.net https://cdn.skypack.dev 'self' blob:;worker-src 'nonce-DFX4zDtBDF32343LjE2DFKMs' 'unsafe-eval' https://www.jsdelivr.com https://cdnjs.cloudflare.com https://cdn.plot.ly https://cdn.jsdelivr.net https://cdn.skypack.dev 'self' blob:">
+
+    <title>PyOn</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/react-resizable@3.0.5/css/styles.css">
+
+</head>
+
+<body>
+    <div id="root">
+    </div>
+    <div id="loadingModal"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center;">
+        <div id="loadingModalText" style="background-color: white; padding: 20px; border-radius: 5px;">Loading Pyodide...</div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/hint/show-hint.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/python/python.min.js'></script>
+    <script src='https://cdn.plot.ly/plotly-2.25.2.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js'></script>    
+
+    <script src="https://cdn.jsdelivr.net/npm/@hpcc-js/wasm/dist/graphviz.umd.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/ag-grid-community@30.1.0/dist/ag-grid-community.min.js"></script>
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-theme-alpine.css"/>
+    
+    <script type="module" nonce="DFX4zDtBDF32343LjE2DFKMs">
+        
+        import * as pakomodule from 'https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.esm.mjs';
+        import { getAvailableFunctions, initializeCodeMirror, updateURL } from './js/url.js';
+        globalThis.updateURL = updateURL        
+
+        import { drawGraphviz } from './js/graphviz.js';
+
+        import * as menuFunctions from './js/react.js';
+        import { loadPyodideAndPackages, render_plot, render_griddf, registerHelpers, registerOnloads} from './js/main.js';
+        import { loadAsyncDuckDb} from './js/duckdb.js';
+
+        globalThis.render_plot = render_plot
+        globalThis.render_griddf = render_griddf
+        globalThis.getAvailableFunctions = getAvailableFunctions
+        globalThis.drawGraphviz = drawGraphviz      
+        globalThis.duckDbCon = null  
+
+        initializeCodeMirror();
+        await loadPyodideAndPackages();
+        await registerHelpers();
+        await registerOnloads();
+        await loadAsyncDuckDb();
+    </script>
+
+</body>
+
+</html>
