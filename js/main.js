@@ -67,25 +67,12 @@ export async function loadPyodideAndPackages() {
     
     const importStr = document.getElementById("imports").value
 
-    let loadArr = ['micropip', 'pandas', 'matplotlib']
-    let importArr = []
+    let loadArr = ['micropip', 'pandas', 'matplotlib', 'sqlite3'];
+    let importArr = importStr.split(/[ ,]+/);
     
-    if (importStr !== null && importStr.length>0){
-        let importArrBox = importStr.split(/[ ,]+/);
-
-        for (let item of importArrBox) {
-            if (loadables.includes(item)){
-                loadArr.push(item);
-            }
-            else{
-                importArr.push(item);
-            }
-        }
-        console.log("loadArr", loadArr)
-        console.log("importArr", importArr)
-    
+    if ( globalThis.pyodide === null ) {
+        globalThis.pyodide = await loadPyodide({packages: loadArr});
     }
-    globalThis.pyodide = await loadPyodide({packages: loadArr});
 
     if (importArr.length > 0){
         document.getElementById("loadingModalText").innerHTML = "Loading Additional Packages via MicroPip: " + importArr;

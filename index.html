@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <meta http-equiv="Content-Security-Policy" content="script-src 'nonce-DFX4zDtBDF32343LjE2DFKMs' 'unsafe-eval' https://www.jsdelivr.com https://cdnjs.cloudflare.com https://cdn.plot.ly https://cdn.jsdelivr.net https://cdn.skypack.dev 'self' blob:;worker-src 'nonce-DFX4zDtBDF32343LjE2DFKMs' 'unsafe-eval' https://www.jsdelivr.com https://cdnjs.cloudflare.com https://cdn.plot.ly https://cdn.jsdelivr.net https://cdn.skypack.dev 'self' blob:">
-
+    
     <title>PyOn</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
@@ -45,11 +45,12 @@
         import { loadPyodideAndPackages, render_plot, render_griddf, registerHelpers, registerOnloads} from './js/main.js';
         import { loadAsyncDuckDb} from './js/duckdb.js';
 
-        globalThis.render_plot = render_plot
-        globalThis.render_griddf = render_griddf
-        globalThis.getAvailableFunctions = getAvailableFunctions
-        globalThis.drawGraphviz = drawGraphviz      
-        globalThis.duckDbCon = null  
+        globalThis.render_plot = render_plot;
+        globalThis.render_griddf = render_griddf;
+        globalThis.getAvailableFunctions = getAvailableFunctions;
+        globalThis.drawGraphviz = drawGraphviz;      
+        globalThis.duckDbCon = null;  
+        globalThis.pyodide = null;
 
         initializeCodeMirror();
         await loadPyodideAndPackages();
