@@ -175,12 +175,13 @@ export function updateURL() {
     const currentURL = new URL(window.location.href);
 
     let imports = document.getElementById('imports').value;
+    imports = imports.replace(/\s+/g, '');
    
     history.replaceState(null, null, currentURL.toString());
 
-    window.location.hash = 'i=' + encodeURIComponent(imports) + '&d=' + compressedAndEncodedData;
+    window.location.hash = 'i=' + encodeURIComponent(imports).replace(/%2C/g, ',') + '&d=' + compressedAndEncodedData;
 
-    console.log("URL length = ", window.location.length);
+    console.log("URL length = ", window.location.href.length);
 
 }
 

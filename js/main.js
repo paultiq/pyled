@@ -149,6 +149,26 @@ def _display(displayResult, aggrid_df = True, output_div = 'bottom'):
 
 
 display = _display
+
+try:
+    import matplotlib
+    #from matplotlib_pyodide import browser_backend 
+    matplotlib.use("module://matplotlib_pyodide.wasm_backend")
+    from js import document
+
+    document.pyodideMplTarget = document.getElementById('bottom')
+    
+    #browser_backend.interactive=False
+    # patch to use a separate div
+    #old_show = browser_backend.FigureCanvasWasm.show
+    #def show(self):
+    #    result = old_show(self)
+    #    self._id = self._id + "1"
+
+    #browser_backend.FigureCanvasWasm.show = show
+
+except Exception as e:
+    console.log("Couldn't register matplotlib target")
 `);
 }
 
@@ -172,12 +192,15 @@ async function runCode() {
             const pythonCode = globalThis.editor.getValue();
             console.log("Running code, length: ", pythonCode.length);
             const autoimport = true;
+            pyStdOut("loadPackagesFromImports: Started")
             if (autoimport) {
-                pyStdOut("Loading packages from import")
                 globalThis.pyodide.loadPackagesFromImports(pythonCode);
+
             }
+            pyStdOut("Execution: Started")
             let result = await globalThis.pyodide.runPythonAsync(pythonCode); // async allows top level await
-            
+            pyStdOut("Execution: Complete")
+
 
             if (autoPrint){
                 if (result === null){

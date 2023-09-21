@@ -7,6 +7,6 @@ export async function drawGraphviz(dot){
     parentDiv.appendChild(childDiv);
      
     gv.load().then(graphviz => {
-        childDiv.innerHTML = graphviz.layout(dotGraph, "svg", "dot");
+        childDiv.innerHTML = graphviz.layout(dot, "svg", "dot");
     });
 }

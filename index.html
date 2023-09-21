@@ -25,7 +25,6 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/hint/show-hint.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/python/python.min.js'></script>
     <script src='https://cdn.plot.ly/plotly-2.25.2.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js'></script>    
 
     <script src="https://cdn.jsdelivr.net/npm/@hpcc-js/wasm/dist/graphviz.umd.js"></script>
@@ -54,8 +53,8 @@
 
         initializeCodeMirror();
         await loadPyodideAndPackages();
-        await registerHelpers();
         await registerOnloads();
+        await registerHelpers();
         await loadAsyncDuckDb();
     </script>
 
