@@ -192,14 +192,14 @@ async function runCode() {
             const pythonCode = globalThis.editor.getValue();
             console.log("Running code, length: ", pythonCode.length);
             const autoimport = true;
-            pyStdOut("loadPackagesFromImports: Started")
+            console.log("loadPackagesFromImports: Started")
             if (autoimport) {
                 globalThis.pyodide.loadPackagesFromImports(pythonCode);
 
             }
-            pyStdOut("Execution: Started")
+            console.log("Execution: Started")
             let result = await globalThis.pyodide.runPythonAsync(pythonCode); // async allows top level await
-            pyStdOut("Execution: Complete")
+            console.log("Execution: Complete")
 
 
             if (autoPrint){
