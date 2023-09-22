@@ -68,27 +68,33 @@ export async function loadPyodideAndPackages() {
     const importStr = document.getElementById("imports").value
 
     let loadArr = ['micropip', 'pandas', 'matplotlib', 'sqlite3'];
-    let importArr = importStr.split(/[ ,]+/);
     
     if ( globalThis.pyodide === null ) {
         globalThis.pyodide = await loadPyodide({packages: loadArr});
     }
 
-    if (importArr.length > 0){
-        document.getElementById("loadingModalText").innerHTML = "Loading Additional Packages via MicroPip: " + importArr;
+    console.log("importStr:", importStr)
+    if (importStr !== null && importStr.length > 0){
+            
+        let importArr = importStr.split(/[ ,]+/);
         
-        try {
-            globalThis.importArr = importArr
-            await globalThis.pyodide.runPython(`
-            from js import importArr
-            import micropip
-            import pyodide
-            print(f"Pyodide Version: {pyodide.__version__}")
-            micropip.install(importArr)
-                `);       
-        } catch (error) {
-            console.error('An error occurred:', error);
-            pyStdErr(error);
+
+        if (importArr.length > 0){
+            document.getElementById("loadingModalText").innerHTML = "Loading Additional Packages via MicroPip: " + importArr;
+            
+            try {
+                globalThis.importArr = importArr
+                await globalThis.pyodide.runPython(`
+                from js import importArr
+                import micropip
+                import pyodide
+                print(f"Pyodide Version: {pyodide.__version__}")
+                micropip.install(importArr)
+                    `);       
+            } catch (error) {
+                console.error('An error occurred:', error);
+                pyStdErr(error);
+            }
         }
     }
 
@@ -155,7 +161,7 @@ try:
     #browser_backend.FigureCanvasWasm.show = show
 
 except Exception as e:
-    console.log("Couldn't register matplotlib target")
+    print("Couldn't register matplotlib target")
 `);
 }
 
