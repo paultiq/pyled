@@ -1,6 +1,7 @@
 let pyodide = null;
 
-let indexURL = "https://cdn.jsdelivr.net/pyodide/dev/pyc/pyodide.mjs";
+//let indexURL = "https://cdn.jsdelivr.net/pyodide/dev/pyc/pyodide.mjs";
+let indexURL = "https://cdn.jsdelivr.net/pyodide/v0.24.0/pyc/pyodide.mjs";
 const { loadPyodide } = await import(indexURL);
 
 const button = document.getElementById("generateBtn");
