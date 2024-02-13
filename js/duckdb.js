@@ -1,5 +1,5 @@
 
-import * as duckdb from 'https://cdn.skypack.dev/@duckdb/duckdb-wasm';
+import * as duckdb from 'https://cdn.skypack.dev/@duckdb/duckdb-wasm@v1.28.0';
 
 async function loadBlockingDuckDb () {
     console.log(window.location.origin);
